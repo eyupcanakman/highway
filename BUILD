@@ -441,6 +441,18 @@ cc_library(
 )
 
 cc_library(
+    name = "hash",
+    compatible_with = [],
+    copts = COPTS,
+    textual_hdrs = [
+        "hwy/contrib/hash/hash-inl.h",
+    ],
+    deps = [
+        ":hwy",
+    ],
+)
+
+cc_library(
     name = "unroller",
     compatible_with = [],
     copts = COPTS,
@@ -639,10 +651,7 @@ HWY_TEST_DEPS = [
                 ],
                 "//conditions:default": [],
             }),
-            linkstatic = select({
-                "@platforms//cpu:riscv64": True,
-                "//conditions:default": False,
-            }),
+            linkstatic = True,
             local_defines = ["HWY_IS_TEST"],
             # Placeholder for malloc, do not remove
             # for test_suite.
